@@ -1,0 +1,28 @@
+@prefix wf: <http://example.org/wildfire#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+################################################
+# Wildfire & Environment Ontology (DYNAMIC)
+################################################
+
+wf:Wildfire a rdfs:Class ;
+    rdfs:label "Wildfire" .
+
+wf:hasSeverity a rdfs:Property ;
+    rdfs:label "has Severity" .
+
+wf:fireSpreadRate a rdfs:Property ;
+    rdfs:label "Fire Spread Rate (km/h)" .
+
+wf:airQuality a rdfs:Property ;
+    rdfs:label "Air Quality Index (AQI)" .
+
+wf:visibleFlames a rdfs:Property ;
+    rdfs:label "Visible Flame Height (m)" .
+
+##########################
+# Severities (Named)
+##########################
+wf:HighSeverity rdfs:label "High Severity" .
+wf:ModerateSeverity rdfs:label "Moderate Severity" .
+wf:LowSeverity rdfs:label "Low Severity" .

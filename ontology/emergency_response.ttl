@@ -1,0 +1,58 @@
+@prefix er: <http://example.org/emergency#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+################################################
+# Agent & Capabilities Ontology (STATIC)
+################################################
+
+er:Agent a rdfs:Class ;
+    rdfs:label "Agent" .
+
+er:Capability a rdfs:Class ;
+    rdfs:label "Capability" .
+
+er:hasCapability a rdfs:Property ;
+    rdfs:label "has Capability" ;
+    rdfs:domain er:Agent ;
+    rdfs:range er:Capability .
+
+################################
+# Example Capabilities
+################################
+
+er:FireExtinguish a er:Capability ;
+    rdfs:label "Fire Extinguish" .
+
+er:LocateVictims a er:Capability ;
+    rdfs:label "Locate Victims" .
+
+er:PerformRescue a er:Capability ;
+    rdfs:label "Perform Rescue" .
+
+er:MedicalAid a er:Capability ;
+    rdfs:label "Provide Medical Aid" .
+
+er:DroneManagement a er:Capability ;
+    rdfs:label "Manage Drones" .
+
+################################
+# Agents (4 types)
+################################
+
+er:FireAgent a er:Agent ;
+    rdfs:label "Fire Agent" ;
+    er:hasCapability er:FireExtinguish ,
+                     er:LocateVictims .
+
+er:DroneCoordinator a er:Agent ;
+    rdfs:label "Drone Coordinator" ;
+    er:hasCapability er:DroneManagement .
+
+er:RescueAgent a er:Agent ;
+    rdfs:label "Rescue Agent" ;
+    er:hasCapability er:LocateVictims ,
+                     er:PerformRescue .
+
+er:MedicalAgent a er:Agent ;
+    rdfs:label "Medical Agent" ;
+    er:hasCapability er:MedicalAid .
