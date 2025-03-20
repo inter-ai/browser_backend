@@ -1,5 +1,5 @@
 # app/main.py
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from app.knowledge_graph import KnowledgeGraphManager
 from app.agent_manager import AgentManager
@@ -7,6 +7,16 @@ from app.tasks_manager import TaskManager
 from app.models import AgentSearchRequest, DroneReport
 
 app = FastAPI(title="Dual KG Demo", version="1.0")
+
+"""Cors bypass"""
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://inter-ai.github.io/", "0.0.0.0","121.0.0.1","http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "*"],
+    allow_headers=["*"],
+)
+
 
 kg_manager = KnowledgeGraphManager()
 agent_manager = AgentManager()
@@ -29,13 +39,15 @@ def dump_agent_kg():
     return {"graph": turtle_data}
 
 @app.post("/agent/kg/search")
-def search_agent_kg(req: AgentSearchRequest):
+def search_agent_kg(req):
     """
     e.g. { "agent_name": "FireAgent" }
     Returns that agent’s snippet in Turtle.
     """
+    # return "hi"
     if not req.agent_name:
-        raise HTTPException(status_code=400, detail="Missing agent_name")
+        pass
+        # raise HTTPException(status_code=400, detail="Missing agent_name")
     turtle_data = kg_manager.search_agent_knowledge(req.agent_name)
     if not turtle_data:
         return {"message": f"Agent '{req.agent_name}' not found or no data."}
